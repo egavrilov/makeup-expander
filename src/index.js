@@ -10,6 +10,7 @@ const defaultOptions = {
     collapseOnFocusOut: false,
     collapseOnMouseOut: false,
     collapseOnClickOut: false,
+    collapseOnEsc: true,
     contentSelector: '.expander__content',
     expandedClass: null,
     expandOnClick: false,
@@ -24,8 +25,9 @@ const defaultOptions = {
 // the idea being that this flag is set BEFORE the click event
 function _onKeyDown(e) {
     const keyCode = e.keyCode;
+    const isEscCounted = keyCode === 27 && this.options.collapseOnEsc;
 
-    if (keyCode === 13 || keyCode === 32) {
+    if (keyCode === 13 || keyCode === 32 || isEscCounted) {
         this.keyDownFlag = true;
 
         // if host element does not naturally trigger a click event on spacebar, we can force one to trigger here.
